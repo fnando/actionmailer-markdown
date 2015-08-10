@@ -1,0 +1,19 @@
+en:
+  mailer:
+    hello:
+      subject: 'Hello there, %{name}'
+      body: |
+        Hello there, %{name}!
+
+        This is just a *welcome* e-mail.
+
+        --
+        For more info, go to http://example.com
+
+    kthxbai:
+      body: '#kthxbai'
+
+    activation:
+        subject: 'Activate your account'
+        body: |
+          Please, [do activate your account](%{activation_url}).
