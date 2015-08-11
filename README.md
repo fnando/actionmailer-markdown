@@ -1,6 +1,6 @@
 # ActionMailer::Markdown
 
-![build status](https://travis-ci.org/fnando/actionmailer-markdown.svg)
+[![build status](https://travis-ci.org/fnando/actionmailer-markdown.svg)](https://travis-ci.org/fnando/actionmailer-markdown)
 
 A different take on using ActionMailer, Markdown and I18n.
 
