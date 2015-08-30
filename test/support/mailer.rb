@@ -1,5 +1,6 @@
 class Mailer < ActionMailer::Base
   prepend_view_path "#{__dir__}"
+  layout 'mailer'
 
   def hello(name)
     @name = name

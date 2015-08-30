@@ -3,22 +3,9 @@ ActionMailer::Base.class_eval do
 
   define_method(:mail) do |headers = {}, &block|
     options = variables_set_by_user
-    message = get_translation_for('body', options)
     subject = get_translation_for('subject', options)
     headers[:subject] ||= subject
-
-    if message
-      block = proc do |format|
-        format.text { render plain: ActionMailer::Markdown.text(message) }
-        format.html { render html: ActionMailer::Markdown.html(message).html_safe }
-      end
-    end
-
     mail_method.bind(self).call(headers, &block)
-  end
-
-  def mailer_scope
-    self.class.mailer_name.tr('/', '.')
   end
 
   def get_translation_for(key, options)
@@ -33,5 +20,9 @@ ActionMailer::Base.class_eval do
       name = name.to_s[/^@(.*?)$/, 1]
       buffer[name.to_sym] = instance_variable_get("@#{name}")
     end
+  end
+
+  def mailer_scope
+    self.class.mailer_name.tr('/', '.')
   end
 end

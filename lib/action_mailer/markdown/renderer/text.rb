@@ -72,7 +72,7 @@ module ActionMailer
           end
 
           links_list = links.map.with_index(1) {|link, index| "[#{index}]: #{link}" }.join("\n")
-          node = Nokogiri::HTML.fragment "<pre>#{links_list}</pre>"
+          node = Nokogiri::HTML.fragment "<pre>\n#{links_list}\n</pre>"
 
           root << node
         end
