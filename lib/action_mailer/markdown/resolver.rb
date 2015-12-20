@@ -6,7 +6,7 @@ module ActionMailer
         html: :md
       }
 
-      def find_templates(name, prefix, partial, details)
+      def find_templates(name, prefix, _partial, details)
         contents = find_contents(name, prefix, details)
         return [] unless contents
 
@@ -18,9 +18,11 @@ module ActionMailer
       end
 
       def build_template(path, contents, identifier, format)
-        ActionView::Template.new(contents, identifier, handler_for(format),
-          virtual_path: path,
-          format: format
+        ActionView::Template.new(
+          contents,
+          identifier,
+          handler_for(format),
+          virtual_path: path, format: format
         )
       end
 
@@ -37,8 +39,9 @@ module ActionMailer
         key = [prefix, name, :body].join(I18n.default_separator)
 
         I18n.with_locale(details[:locale].first || I18n.locale) do
-          I18n.t(key, raise: true) rescue nil
+          I18n.t(key, raise: true)
         end
+      rescue I18n::MissingTranslationData
       end
     end
   end

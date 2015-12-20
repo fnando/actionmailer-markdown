@@ -3,7 +3,7 @@ ActionMailer::Base.class_eval do
 
   define_method(:mail) do |headers = {}, &block|
     options = variables_set_by_user
-    subject = get_translation_for('subject', options)
+    subject = get_translation_for("subject", options)
     headers[:subject] ||= subject
     mail_method.bind(self).call(headers, &block)
   end
@@ -23,6 +23,6 @@ ActionMailer::Base.class_eval do
   end
 
   def mailer_scope
-    self.class.mailer_name.tr('/', '.')
+    self.class.mailer_name.tr("/", ".")
   end
 end

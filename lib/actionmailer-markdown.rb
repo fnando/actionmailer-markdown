@@ -1,1 +1,1 @@
-require 'action_mailer/markdown'
+require "action_mailer/markdown"

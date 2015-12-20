@@ -10,7 +10,7 @@ module ActionMailer
 
         def initialize(source)
           @source = source
-          @root = Nokogiri::HTML(Markdown.html(source)).css('body')
+          @root = Nokogiri::HTML(Markdown.html(source)).css("body")
         end
 
         def extract
@@ -25,32 +25,32 @@ module ActionMailer
         end
 
         def process_code
-          root.css('code').each do |code|
-            next if code.parent.name == 'pre'
+          root.css("code").each do |code|
+            next if code.parent.name == "pre"
             code.content = "`#{code.content}`"
           end
         end
 
         def process_hr
-          root.css('hr').each(&:remove)
+          root.css("hr").each(&:remove)
         end
 
         def process_h1
-          root.css('h1').each do |heading|
+          root.css("h1").each do |heading|
             heading.content = "#{heading.text}\n#{'=' * heading.text.size}"
           end
         end
 
         def process_h2
-          root.css('h2').each do |heading|
+          root.css("h2").each do |heading|
             heading.content = "\n#{heading.text}\n#{'-' * heading.text.size}"
           end
         end
 
         def process_lists
-          root.css('ol, ul').each do |list|
-            list.css('li').to_enum(:each).with_index(1) do |item, index|
-              prefix = (list.name == 'ol' ? "#{index}." : "-")
+          root.css("ol, ul").each do |list|
+            list.css("li").to_enum(:each).with_index(1) do |item, index|
+              prefix = (list.name == "ol" ? "#{index}." : "-")
               item.content = "#{prefix} #{item.text}"
             end
           end
@@ -59,11 +59,11 @@ module ActionMailer
         def process_links
           links = []
 
-          root.css('a').each do |link|
-            href = link['href']
+          root.css("a").each do |link|
+            href = link["href"]
 
-            if href.starts_with?('mailto:')
-              link.content = href.sub('mailto:', '')
+            if href.starts_with?("mailto:")
+              link.content = href.sub("mailto:", "")
             elsif link.content.match(%r[^(?!\w+://)])
               links << href unless links.include?(href)
               index = links.index(href) + 1

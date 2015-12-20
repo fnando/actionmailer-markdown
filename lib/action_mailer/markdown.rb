@@ -1,15 +1,15 @@
 module ActionMailer
   module Markdown
-    require 'action_mailer'
-    require 'action_view'
-    require 'redcarpet'
+    require "action_mailer"
+    require "action_view"
+    require "redcarpet"
 
-    require 'action_mailer/markdown/version'
-    require 'action_mailer/markdown/resolver'
-    require 'action_mailer/markdown/ext'
-    require 'action_mailer/markdown/renderer'
-    require 'action_mailer/markdown/renderer/text'
-    require 'action_mailer/markdown/template_handler'
+    require "action_mailer/markdown/version"
+    require "action_mailer/markdown/resolver"
+    require "action_mailer/markdown/ext"
+    require "action_mailer/markdown/renderer"
+    require "action_mailer/markdown/renderer/text"
+    require "action_mailer/markdown/template_handler"
   end
 end
 

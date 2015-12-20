@@ -1,7 +1,7 @@
 module ActionMailer
   module Markdown
     module TemplateHandler
-      UNDERSCORE = '_'.freeze
+      UNDERSCORE = "_".freeze
 
       def self.render(template, context, format)
         source = template.rstrip % extract_variables(context)
@@ -19,13 +19,19 @@ module ActionMailer
 
       class Text
         def self.call(template)
-          %[ActionMailer::Markdown::TemplateHandler.render(#{template.source.inspect}, self, :text)]
+          %[
+            ActionMailer::Markdown::TemplateHandler
+              .render(#{template.source.inspect}, self, :text)
+          ]
         end
       end
 
       class HTML
         def self.call(template)
-          %[ActionMailer::Markdown::TemplateHandler.render(#{template.source.inspect}, self, :html)]
+          %[
+            ActionMailer::Markdown::TemplateHandler
+              .render(#{template.source.inspect}, self, :html)
+          ]
         end
       end
     end
