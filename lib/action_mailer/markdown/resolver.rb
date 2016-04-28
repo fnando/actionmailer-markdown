@@ -37,12 +37,12 @@ module ActionMailer
 
       def translations
         I18n.backend.initialize unless I18n.backend.initialized?
-        I18n.send(:translations)
+        I18n.backend.send(:translations)
       end
 
       def find_contents(name, prefix, details)
         [details[:locale].try(:first) || I18n.locale, prefix, name, :body]
-          .reduce(I18n.backend.send(:translations)) do |buffer, key|
+          .reduce(translations) do |buffer, key|
             buffer && buffer[key.to_sym]
           end
       end
