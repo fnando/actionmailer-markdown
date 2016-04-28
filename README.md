@@ -1,6 +1,10 @@
 # ActionMailer::Markdown
 
-[![build status](https://travis-ci.org/fnando/actionmailer-markdown.svg)](https://travis-ci.org/fnando/actionmailer-markdown)
+[![Travis-CI](https://travis-ci.org/fnando/actionmailer-markdown.png)](https://travis-ci.org/fnando/actionmailer-markdown)
+[![Code Climate](https://codeclimate.com/github/fnando/actionmailer-markdown/badges/gpa.svg)](https://codeclimate.com/github/fnando/actionmailer-markdown)
+[![Test Coverage](https://codeclimate.com/github/fnando/actionmailer-markdown/badges/coverage.svg)](https://codeclimate.com/github/fnando/actionmailer-markdown/coverage)
+[![Gem](https://img.shields.io/gem/v/actionmailer-markdown.svg)](https://rubygems.org/gems/actionmailer-markdown)
+[![Gem](https://img.shields.io/gem/dt/actionmailer-markdown.svg)](https://rubygems.org/gems/actionmailer-markdown)
 
 A different take on using ActionMailer, Markdown and I18n.
 

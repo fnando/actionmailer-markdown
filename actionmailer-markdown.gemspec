@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest-utils"
   spec.add_development_dependency "pry-meta"
   spec.add_development_dependency "kramdown"
+  spec.add_development_dependency "codeclimate-test-reporter"
 end
