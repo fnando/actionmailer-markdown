@@ -37,13 +37,13 @@ module ActionMailer
 
         def process_h1
           root.css("h1").each do |heading|
-            heading.content = "#{heading.text}\n#{'=' * heading.text.size}"
+            heading.content = build_heading(heading.text, "=")
           end
         end
 
         def process_h2
           root.css("h2").each do |heading|
-            heading.content = "\n#{heading.text}\n#{'-' * heading.text.size}"
+            heading.content = "\n#{build_heading(heading.text, "-")}"
           end
         end
 
@@ -75,6 +75,12 @@ module ActionMailer
           node = Nokogiri::HTML.fragment "<pre>\n#{links_list}\n</pre>"
 
           root << node
+        end
+
+        private
+
+        def build_heading(text, separator)
+          "#{text}\n#{separator * text.size}"
         end
       end
     end
