@@ -82,4 +82,11 @@ class MarkdownTest < Minitest::Test
     assert mail.multipart?
     assert_includes html, %[<h1 id="kthxbai">kthxbai</h1>]
   end
+
+  test 'interpolates variables on body' do
+    mail = Mailer.bai
+    text = mail.text_part.body.raw_source
+
+    assert_includes text, "We’re sad to see you go, John."
+  end
 end

@@ -6,7 +6,7 @@ module ActionMailer
         html: :md
       }
 
-      def find_templates(name, prefix, _partial, details)
+      def find_templates(name, prefix, _partial, details, outside_app_allowed = false)
         contents = find_contents(name, prefix, details)
         return [] unless contents
 
@@ -35,13 +35,16 @@ module ActionMailer
         "#{prefix}/#{name}"
       end
 
-      def find_contents(name, prefix, details)
-        key = [prefix, name, :body].join(I18n.default_separator)
+      def translations
+        I18n.backend.initialize unless I18n.backend.initialized?
+        I18n.send(:translations)
+      end
 
-        I18n.with_locale(details[:locale].first || I18n.locale) do
-          I18n.t(key, raise: true)
-        end
-      rescue I18n::MissingTranslationData
+      def find_contents(name, prefix, details)
+        [details[:locale].try(:first) || I18n.locale, prefix, name, :body]
+          .reduce(I18n.backend.send(:translations)) do |buffer, key|
+            buffer && buffer[key.to_sym]
+          end
       end
     end
   end

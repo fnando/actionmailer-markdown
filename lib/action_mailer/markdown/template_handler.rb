@@ -2,10 +2,21 @@ module ActionMailer
   module Markdown
     module TemplateHandler
       UNDERSCORE = "_".freeze
+      OBJECT_ATTRIBUTE_MATCHER = /%\{([a-z0-9_]+\.[a-z0-9_]+)\}/i
 
       def self.render(template, context, format)
-        source = template.rstrip % extract_variables(context)
+        variables = expand_variables(template, extract_variables(context))
+        source = template.rstrip % variables
         ActionMailer::Markdown.public_send(format, source)
+      end
+
+      def self.expand_variables(template, variables)
+        template.scan(OBJECT_ATTRIBUTE_MATCHER)
+          .map(&:first)
+          .each_with_object(variables) do |match, buffer|
+            target, attribute = match.split(".")
+            buffer[match.to_sym] = variables[target.to_sym].public_send(attribute)
+          end
       end
 
       def self.extract_variables(context)

@@ -9,8 +9,12 @@ en:
 
         --
         For more info, go to http://example.com
+
     kthxbai:
       body: '#kthxbai'
+
+    bai:
+      body: We're sad to see you go, %{user.name}.
 
     activation:
         subject: 'Activate your account'

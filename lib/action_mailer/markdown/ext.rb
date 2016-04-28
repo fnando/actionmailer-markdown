@@ -5,6 +5,7 @@ ActionMailer::Base.class_eval do
     options = variables_set_by_user
     subject = get_translation_for("subject", options)
     headers[:subject] ||= subject
+    headers[:locals] = {a: 1}
     mail_method.bind(self).call(headers, &block)
   end
 

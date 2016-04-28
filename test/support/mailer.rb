@@ -25,4 +25,9 @@ class Mailer < ActionMailer::Base
     @activation_url = 'http://example.com/activate/4d4b4396-dc26-47c4-b433-2cd9a1b45ce1'
     mail to: 'noreply@example.com'
   end
+
+  def bai
+    @user = OpenStruct.new(name: 'John')
+    mail to: 'noreply@example.com'
+  end
 end
