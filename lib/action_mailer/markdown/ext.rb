@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActionMailer::Base.class_eval do
   mail_method = instance_method(:mail)
 
@@ -17,7 +19,8 @@ ActionMailer::Base.class_eval do
 
   def variables_set_by_user
     instance_variables.each_with_object({}) do |name, buffer|
-      next if name.match(/^@_/)
+      next if name =~ /^@_/
+
       name = name.to_s[/^@(.*?)$/, 1]
       buffer[name.to_sym] = instance_variable_get("@#{name}")
     end

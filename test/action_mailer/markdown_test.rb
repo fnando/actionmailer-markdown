@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class MarkdownTest < Minitest::Test
@@ -12,7 +14,7 @@ class MarkdownTest < Minitest::Test
     assert_equal "Hello there, John", mail.subject
     assert_includes html, "<p>Hello there, John!</p>"
     assert_includes html, "<p>This is just a <em>welcome</em> e-mail.</p>"
-    assert_includes html, %[<p>&ndash;<br>\nFor more info, go to <a href="http://example.com">http://example.com</a></p>]
+    assert_includes html, %[<p>&ndash;<br>\r\nFor more info, go to <a href="http://example.com">http://example.com</a></p>]
   end
 
   test "render text part" do
@@ -20,16 +22,16 @@ class MarkdownTest < Minitest::Test
     text = mail.text_part.body.raw_source
 
     assert_equal "Hello there, Mary", mail.subject
-    assert_match %r[^Hello there, Mary!$], text
-    assert_match %r[^This is just a welcome e-mail\.$], text
-    assert_match %r[^For more info, go to http://example\.com$], text
+    assert_match /^Hello there, Mary!\r\n/, text
+    assert_match /^This is just a welcome e-mail\.\r\n/, text
+    assert_match %r{^For more info, go to http://example\.com\r\n}, text
   end
 
   test "render layout (text)" do
     mail = Mailer.hello("Mary")
     text = mail.text_part.body.raw_source
 
-    assert_includes text, "\nThanks,\nACME Team"
+    assert_includes text, "\r\nThanks,\r\nACME Team"
   end
 
   test "render layout (html)" do
@@ -41,12 +43,12 @@ class MarkdownTest < Minitest::Test
 
   test "uses template" do
     mail = Mailer.welcome
-    assert_match /^Welcome!$/, mail.body.raw_source
+    assert_match /^Welcome!\r\n/, mail.body.raw_source
   end
 
   test "uses provided block" do
     mail = Mailer.ohai
-    assert_match /^OHAI!$/, mail.body.raw_source
+    assert_match /^OHAI!\r\n/, mail.body.raw_source
   end
 
   test "uses specified subject" do
@@ -60,8 +62,8 @@ class MarkdownTest < Minitest::Test
     html = mail.html_part.body.raw_source
 
     assert mail.multipart?
-    assert_match /^#kthxbai$/, text
-    assert_match /^\s*<p>#kthxbai<\/p>$/, html
+    assert_match /^\#kthxbai\r\n/, text
+    assert_includes html, %[<p>#kthxbai</p>]
   end
 
   test "renders urls" do
@@ -75,7 +77,7 @@ class MarkdownTest < Minitest::Test
   end
 
   test "custom markdown processor" do
-    ActionMailer::Markdown.processor = -> text { Kramdown::Document.new(text).to_html }
+    ActionMailer::Markdown.processor = ->(text) { Kramdown::Document.new(text).to_html }
     mail = Mailer.kthxbai
     html = mail.html_part.body.raw_source
 

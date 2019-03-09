@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActionMailer
   module Markdown
     class Renderer < Redcarpet::Render::HTML
@@ -11,7 +13,8 @@ module ActionMailer
 
     renderer = Renderer.new(hard_wrap: true, safe_links_only: true)
 
-    markdown_engine = Redcarpet::Markdown.new(renderer, {
+    markdown_engine = Redcarpet::Markdown.new(
+      renderer,
       tables: true,
       footnotes: true,
       space_after_headers: true,
@@ -20,9 +23,9 @@ module ActionMailer
       strikethrough: true,
       autolink: true,
       no_intra_emphasis: true
-    })
+    )
 
-    self.default_processor = -> text { markdown_engine.render(text) }
+    self.default_processor = ->(text) { markdown_engine.render(text) }
     self.processor = default_processor
 
     def self.html(text)

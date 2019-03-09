@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module ActionMailer
   module Markdown
     module TemplateHandler
-      UNDERSCORE = "_".freeze
-      OBJECT_ATTRIBUTE_MATCHER = /%\{([a-z0-9_]+\.[a-z0-9_]+)\}/i
+      UNDERSCORE = "_"
+      OBJECT_ATTRIBUTE_MATCHER = /%\{([a-z0-9_]+\.[a-z0-9_]+)\}/i.freeze
 
       def self.render(template, context, format)
         variables = expand_variables(template, extract_variables(context))
@@ -11,7 +13,8 @@ module ActionMailer
       end
 
       def self.expand_variables(template, variables)
-        template.scan(OBJECT_ATTRIBUTE_MATCHER)
+        template
+          .scan(OBJECT_ATTRIBUTE_MATCHER)
           .map(&:first)
           .each_with_object(variables) do |match, buffer|
             target, attribute = match.split(".")
@@ -24,12 +27,13 @@ module ActionMailer
           .instance_variable_get(:@_assigns)
           .each_with_object({}) do |(name, value), buffer|
             next if name.start_with?(UNDERSCORE)
+
             buffer[name.to_sym] = value
           end
       end
 
       class Text
-        def self.call(template)
+        def self.call(template, _source = nil)
           %[
             ActionMailer::Markdown::TemplateHandler
               .render(#{template.source.inspect}, self, :text)
@@ -38,7 +42,7 @@ module ActionMailer
       end
 
       class HTML
-        def self.call(template)
+        def self.call(template, _source = nil)
           %[
             ActionMailer::Markdown::TemplateHandler
               .render(#{template.source.inspect}, self, :html)

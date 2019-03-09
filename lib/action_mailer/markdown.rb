@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActionMailer
   module Markdown
     require "action_mailer"

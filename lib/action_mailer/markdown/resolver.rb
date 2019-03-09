@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module ActionMailer
   module Markdown
     class Resolver < ActionView::Resolver
       FORMAT_TO_EXTENSION = {
         text: :mdt,
         html: :md
-      }
+      }.freeze
 
-      def find_templates(name, prefix, _partial, details, outside_app_allowed = false)
+      def find_templates(name, prefix, _partial, details, _outside_app_allowed = false)
         contents = find_contents(name, prefix, details)
         return [] unless contents
 

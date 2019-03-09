@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActionMailer
   module Markdown
     class Renderer
@@ -27,6 +29,7 @@ module ActionMailer
         def process_code
           root.css("code").each do |code|
             next if code.parent.name == "pre"
+
             code.content = "`#{code.content}`"
           end
         end
@@ -43,7 +46,7 @@ module ActionMailer
 
         def process_h2
           root.css("h2").each do |heading|
-            heading.content = "\n#{build_heading(heading.text, "-")}"
+            heading.content = "\n#{build_heading(heading.text, '-')}"
           end
         end
 
@@ -64,7 +67,7 @@ module ActionMailer
 
             if href.starts_with?("mailto:")
               link.content = href.sub("mailto:", "")
-            elsif link.content.match(%r[^(?!\w+://)])
+            elsif link.content.match?(%r{^(?!\w+://)})
               links << href unless links.include?(href)
               index = links.index(href) + 1
               link.content = "#{link.content}[#{index}]"
@@ -77,9 +80,7 @@ module ActionMailer
           root << node
         end
 
-        private
-
-        def build_heading(text, separator)
+        private def build_heading(text, separator)
           "#{text}\n#{separator * text.size}"
         end
       end

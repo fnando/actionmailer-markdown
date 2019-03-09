@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Mailer < ActionMailer::Base
-  prepend_view_path "#{__dir__}"
+  prepend_view_path __dir__
   layout "mailer"
 
   def hello(name)
@@ -12,9 +14,7 @@ class Mailer < ActionMailer::Base
   end
 
   def ohai
-    mail to: "ohai" do |format|
-      format.text
-    end
+    mail(to: "ohai", &:text)
   end
 
   def kthxbai
