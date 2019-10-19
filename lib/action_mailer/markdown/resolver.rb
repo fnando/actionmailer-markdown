@@ -24,7 +24,9 @@ module ActionMailer
           contents,
           identifier,
           handler_for(format),
-          virtual_path: path, format: format
+          virtual_path: path,
+          format: format,
+          locals: []
         )
       end
 

@@ -1,6 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.4
-  TargetRailsVersion: 5.2
+  TargetRubyVersion: 2.6
 
   Exclude:
     - db/schema.rb
@@ -32,15 +31,15 @@ Layout/FirstHashElementLineBreak:
 
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
-    '%':  '[]'
-    '%i': '[]'
-    '%q': '[]'
-    '%Q': '[]'
-    '%r': '{}'
-    '%s': '[]'
-    '%w': '[]'
-    '%W': '[]'
-    '%x': '[]'
+    "%": "[]"
+    "%i": "[]"
+    "%q": "[]"
+    "%Q": "[]"
+    "%r": "{}"
+    "%s": "[]"
+    "%w": "[]"
+    "%W": "[]"
+    "%x": "[]"
 
 Metrics/LineLength:
   Enabled: false
@@ -51,7 +50,7 @@ Metrics/MethodLength:
 Style/EmptyMethod:
   EnforcedStyle: expanded
 
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
 
 Style/AccessModifierDeclarations:
