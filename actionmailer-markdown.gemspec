@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = spec.summary
   spec.homepage      = "https://github.com/fnando/actionmailer-markdown"
   spec.license       = "MIT"
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
   spec.files         = `git ls-files -z`.split("\x0").reject {|f| f.match(%r{^(test|spec|features)/}) }
   spec.executables   = spec.files.grep(%r{^exe/}) {|f| File.basename(f) }
@@ -27,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rails"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop-fnando"
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "simplecov-console"
 end

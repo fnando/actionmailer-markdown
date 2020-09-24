@@ -22,8 +22,8 @@ class MarkdownTest < Minitest::Test
     text = mail.text_part.body.raw_source
 
     assert_equal "Hello there, Mary", mail.subject
-    assert_match /^Hello there, Mary!\r\n/, text
-    assert_match /^This is just a welcome e-mail\.\r\n/, text
+    assert_match(/^Hello there, Mary!\r\n/, text)
+    assert_match(/^This is just a welcome e-mail\.\r\n/, text)
     assert_match %r{^For more info, go to http://example\.com\r\n}, text
   end
 
@@ -43,12 +43,12 @@ class MarkdownTest < Minitest::Test
 
   test "uses template" do
     mail = Mailer.welcome
-    assert_match /^Welcome!\r\n/, mail.body.raw_source
+    assert_match(/^Welcome!\r\n/, mail.body.raw_source)
   end
 
   test "uses provided block" do
     mail = Mailer.ohai
-    assert_match /^OHAI!\r\n/, mail.body.raw_source
+    assert_match(/^OHAI!\r\n/, mail.body.raw_source)
   end
 
   test "uses specified subject" do
@@ -62,7 +62,7 @@ class MarkdownTest < Minitest::Test
     html = mail.html_part.body.raw_source
 
     assert mail.multipart?
-    assert_match /^\#kthxbai\r\n/, text
+    assert_match(/^\#kthxbai\r\n/, text)
     assert_includes html, %[<p>#kthxbai</p>]
   end
 

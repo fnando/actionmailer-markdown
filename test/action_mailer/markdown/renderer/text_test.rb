@@ -57,6 +57,6 @@ class TextTest < Minitest::Test
     text = ActionMailer::Markdown::Renderer::Text.extract(source)
 
     assert text.include?("Look at `ActionMailer::Base` class for this.")
-    assert_match /^This is just a code block\.$/, text
+    assert_match(/^This is just a code block\.$/, text)
   end
 end

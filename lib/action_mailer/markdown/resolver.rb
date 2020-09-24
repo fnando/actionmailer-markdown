@@ -8,7 +8,13 @@ module ActionMailer
         html: :md
       }.freeze
 
-      def find_templates(name, prefix, _partial, details, _outside_app_allowed = false)
+      def find_templates(
+        name,
+        prefix,
+        _partial,
+        details,
+        _outside_app_allowed = false
+      )
         contents = find_contents(name, prefix, details)
         return [] unless contents
 
