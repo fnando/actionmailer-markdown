@@ -8,18 +8,18 @@ ActionMailer::Base.class_eval do
     subject = get_translation_for("subject", options)
     headers[:subject] ||= subject
     headers[:locals] = {a: 1}
-    mail_method.bind(self).call(headers, &block)
+    mail_method.bind_call(self, headers, &block)
   end
 
   def get_translation_for(key, options)
-    I18n.t(key, options.merge(scope: [mailer_scope, action_name], raise: true))
+    I18n.t(key, **options.merge(scope: [mailer_scope, action_name], raise: true))
   rescue I18n::MissingTranslationData
     nil
   end
 
   def variables_set_by_user
     instance_variables.each_with_object({}) do |name, buffer|
-      next if name =~ /^@_/
+      next if /^@_/.match?(name)
 
       name = name.to_s[/^@(.*?)$/, 1]
       buffer[name.to_sym] = instance_variable_get("@#{name}")

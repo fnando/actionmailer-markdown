@@ -9,15 +9,13 @@ AllCops:
 Layout/LineLength:
   Enabled: false
 
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
-Style/OptionalBooleanParameter:
+Metrics:
   Enabled: false
 
 Naming/FileName:
   Exclude:
     - lib/actionmailer-markdown.rb
+
+Style/OpenStructUse:
+  Exclude:
+    - test/**/*.rb

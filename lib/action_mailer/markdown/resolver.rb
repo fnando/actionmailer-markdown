@@ -13,7 +13,7 @@ module ActionMailer
         prefix,
         _partial,
         details,
-        _outside_app_allowed = false
+        _outside_app_allowed = false # rubocop:disable Style/OptionalBooleanParameter
       )
         contents = find_contents(name, prefix, details)
         return [] unless contents
